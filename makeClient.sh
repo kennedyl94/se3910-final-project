@@ -1,0 +1,1 @@
+g++ -lasound Client.cpp AudioCapture.cpp VideoCapture.cpp VideoDisplayer.cpp -o client

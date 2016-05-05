@@ -1,0 +1,1 @@
+g++ -lasound Server.cpp AudioReceiver.cpp VideoReceiver.cpp VideoDisplayer.cpp -o server
