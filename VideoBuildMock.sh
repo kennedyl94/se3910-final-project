@@ -1,0 +1,1 @@
+g++ -O2 `pkg-config --cflags --libs opencv` VideoCamera.cpp VideoDisplay.cpp VideoMock.cpp -o mock
