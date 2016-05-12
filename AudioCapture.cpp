@@ -1,4 +1,5 @@
 #include "AudioInterface.h"
+#include "AudioCapture.h"
 #include <iostream>
 #include <cstdlib>
 #include <pthread.h>
@@ -9,40 +10,34 @@ using namespace std;
 #define NUMBER_OF_CHANNELS (2)
 #define BYTES_PER_SAMPLE (2)
 
-class AudioCapture
-{
-public:
-    void captureAudio();
-    void sendAudio();
-    AudioCapture(char* audio);
-
-private:
-    AudioInterface *ai;
-    int rc;
-    char* buffer;
-    int bufferSize;
-};
-
 AudioCapture::AudioCapture(char* audio)
 {
+    cout << "AudioCapture created" << endl;
     ai = new AudioInterface(audio, SAMPLING_RATE, NUMBER_OF_CHANNELS, SND_PCM_STREAM_CAPTURE);
     ai->open();
     bufferSize = ai->getRequiredBufferSize();
 
     buffer = (char*)malloc(bufferSize);
 
-    pthread_create threads[1];//only 1 thread
+    pthread_t threads[1];//only 1 thread
     int t;
-    t = pthread_create(&threads[0], NULL, &captureAudio, NULL);
+    t = pthread_create(&threads[0], NULL, &tmp, this);
 
     if(t){
-        cout << "unable to create thread in AudioReceiver" << endl;
+        cout << "unable to create thread in AudioCapture" << endl;
         exit(-1);
     }
 }
 
-void *AudioCapture::captureAudio()
+void* tmp(void* a)
 {
+	AudioCapture* b = static_cast<AudioCapture*>(a);
+	b->captureAudio();
+}
+
+void AudioCapture::captureAudio()
+{
+    cout << "capturing audio" << endl;
     // Open the file that is going to be read.
     int filedesc = open("audioCapture.bin", O_WRONLY | O_CREAT);
     rc = 1;
@@ -64,6 +59,16 @@ void *AudioCapture::captureAudio()
     ai->close();
 }
 
-AudioCapture::sendAudio(){
+void AudioCapture::sendAudio(){
     //TODO
+}
+
+int main(int argc, char* argv[])
+{
+    if(argc != 2){
+        exit(0);
+    }
+
+    AudioCapture ac(argv[1]);
+    return 0;
 }

@@ -1,4 +1,5 @@
 #include "AudioInterface.h"
+#include "AudioReceiver.h"
 #include <iostream>
 #include <cstdlib>
 #include <pthread.h>
@@ -9,30 +10,18 @@ using namespace std;
 #define NUMBER_OF_CHANNELS (2)
 #define BYTES_PER_SAMPLE (2)
 
-class AudioReceiver
-{
-public:
-    void receiveAudio();
-    AudioReceiver(char* audio);
-
-private:
-    AudioInterface *ai;
-    int rc;
-    char *buffer;
-    int bufferSize;
-};
-
 AudioReceiver::AudioReceiver(char* audio)
 {
+    cout << "AudioReceiver created" << endl;
     ai = new AudioInterface(audio, SAMPLING_RATE, NUMBER_OF_CHANNELS, SND_PCM_STREAM_PLAYBACK);
     ai->open();
     bufferSize = ai->getRequiredBufferSize();
 
     buffer = (char*)malloc(bufferSize);
 
-    pthread_create threads[1];//only 1 thread
+    pthread_t threads[1];//only 1 thread
     int t;
-    t = pthread_create(&threads[0], NULL, &receiveAudio, NULL);
+    t = pthread_create(&threads[0], NULL, &tmp, NULL);
 
     if(t){
         cout << "unable to create thread in AudioReceiver" << endl;
@@ -40,8 +29,15 @@ AudioReceiver::AudioReceiver(char* audio)
     }
 }
 
-void *AudioReceiver::receiveAudio()
+void* tmp(void* a)
 {
+	AudioReceiver* b = static_cast<AudioReceiver*>(a);
+	b->receiveAudio();
+}
+
+void AudioReceiver::receiveAudio()
+{
+    cout << "receiving audio" << endl;
     // Open the file that is going to be read.
     int filedesc = open("audioCapture.bin", O_RDONLY);
     rc = 1;
@@ -57,4 +53,14 @@ void *AudioReceiver::receiveAudio()
         //TODO play audio
 
     } while (rc > 0);
+}
+
+int main(int argc, char* argv[])
+{
+    if(argc != 2){
+        exit(0);
+    }
+
+    AudioReceiver ar(argv[1]);
+    return 0;
 }
