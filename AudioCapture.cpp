@@ -21,12 +21,15 @@ AudioCapture::AudioCapture(char* audio)
 
     pthread_t threads[1];//only 1 thread
     int t;
-    t = pthread_create(&threads[0], NULL, &tmp, this);
+	t = pthread_create(&threads[0], NULL, &tmp, this);
 
     if(t){
         cout << "unable to create thread in AudioCapture" << endl;
         exit(-1);
     }
+	
+	//keeps main thread running so other thread can run
+	while(true);
 }
 
 void* tmp(void* a)
@@ -39,7 +42,8 @@ void AudioCapture::captureAudio()
 {
     cout << "capturing audio" << endl;
     // Open the file that is going to be read.
-    int filedesc = open("audioCapture.bin", O_WRONLY | O_CREAT);
+    //TODO replace file write with network buffer write
+	int filedesc = open("audioCapture.bin", O_WRONLY | O_CREAT);
     rc = 1;
 
     do {

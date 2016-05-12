@@ -21,12 +21,15 @@ AudioReceiver::AudioReceiver(char* audio)
 
     pthread_t threads[1];//only 1 thread
     int t;
-    t = pthread_create(&threads[0], NULL, &tmp, NULL);
+    t = pthread_create(&threads[0], NULL, &tmp, this);
 
     if(t){
         cout << "unable to create thread in AudioReceiver" << endl;
         exit(-1);
     }
+	
+	//keeps main thread running so other thread can run
+	while(true);
 }
 
 void* tmp(void* a)
@@ -39,7 +42,8 @@ void AudioReceiver::receiveAudio()
 {
     cout << "receiving audio" << endl;
     // Open the file that is going to be read.
-    int filedesc = open("audioCapture.bin", O_RDONLY);
+	//TODO replace file read with network buffer read
+	int filedesc = open("clicks.wav", O_RDONLY);
     rc = 1;
 
     do {
@@ -49,8 +53,6 @@ void AudioReceiver::receiveAudio()
         if (rc > 0) {
             ai->write(buffer, rc);
         }
-
-        //TODO play audio
 
     } while (rc > 0);
 }
