@@ -31,39 +31,40 @@ VideoDisplay::VideoDisplay()
 {
   cout << "VideoDisplay Constructor entered." << endl;
   
+  // create a application
+  int zero = 0;
+  QApplication app( zero, NULL );
+
+  // create the label that will display the frames
+  imageLabel = new QLabel();
+  imageLabel -> setBackgroundRole( QPalette::Base );
+  imageLabel -> setSizePolicy( QSizePolicy::Ignored, QSizePolicy::Ignored );
+  imageLabel -> setScaledContents( true );
+  
+  // set the current frame to a red test image
+  QPixmap RED("red.png");
+  imageLabel->setPixmap( RED );
+  
+  // create a layout
+  QVBoxLayout *layout = new QVBoxLayout();
+  layout->addWidget( imageLabel );
+  
+  // create a widget
+  QWidget widget;
+  widget.setWindowTitle( "Z.J.L. Image Viewer");
+  widget.resize(450, 340);
+  widget.setLayout(layout);
+  widget.show();
+  
+  // begin execution of the UI
+  app.exec();
+  
   cout << "VideoDisplay Constructor exited." << endl;
-  
-  
-      // int zero = 0;
-      // QApplication app( zero, NULL );
-      
-      // QWidget widget;
-      // QVBoxLayout *layout = new QVBoxLayout();
-      
-      
-      // initialize the label that will display the frames
-      
-      
-      // imageLabel = new QLabel();
-      // imageLabel -> setBackgroundRole( QPalette::Base );
-      // imageLabel -> setSizePolicy( QSizePolicy::Ignored, QSizePolicy::Ignored );
-      // imageLabel -> setScaledContents( true );
-      
+
       // QPixmap RED("red.png");
       // //GREEN = QPixmap("green.png");
       // //BLUE = QPixmap("blue.png");
       // imageLabel->setPixmap( RED );
-      
-      
-      // // set the dimensions of the UI
-      // widget.setWindowTitle( "Z.J.L. Image Viewer");
-      // widget.resize(450, 340);
-      
-      // layout->addWidget( imageLabel );
-      
-      // widget.setLayout(layout);
-      // widget.show();
-      // app.exec();
 };
 
 void VideoDisplay::changeFrame()
