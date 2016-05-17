@@ -10,7 +10,8 @@ int main( int argc, char **argv )
 {
   cout << "Main loop entered." << endl;
   
-  VideoDisplay display(  );
+  VideoDisplay display;
+  display.changeFrame( );
   
   cout << "Main loop exited." << endl;
   

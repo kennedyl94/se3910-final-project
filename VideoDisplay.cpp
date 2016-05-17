@@ -11,63 +11,67 @@ using namespace cv;
 
 class VideoDisplay
 {
-  signals:
+  //signals:
     // void changeFrame( QPixmap frame );
 
   private:
     
     QLabel *imageLabel;
-    QPixmap RED;
+    // QPixmap RED;
     // QPixmap BLUE;
     // QPixmap GREEN;
   
   public:
-  
-    // void red( )
-    // {
-        // emit ( changeFrame( RED ) );
-    // };
+    VideoDisplay(); //constructor
+    void changeFrame();
+    
+};
 
-    VideoDisplay()
-    {
-      cout << "VideoDisplay Constructor entered." << endl;
+VideoDisplay::VideoDisplay()
+{
+  cout << "VideoDisplay Constructor entered." << endl;
+  
+  cout << "VideoDisplay Constructor exited." << endl;
+  
+  
+      // int zero = 0;
+      // QApplication app( zero, NULL );
       
-      int zero = 0;
-      QApplication app( zero, NULL );
-      
-      QWidget widget;
-      QVBoxLayout *layout = new QVBoxLayout();
+      // QWidget widget;
+      // QVBoxLayout *layout = new QVBoxLayout();
       
       
       // initialize the label that will display the frames
       
       
-      imageLabel = new QLabel();
-      imageLabel -> setBackgroundRole( QPalette::Base );
-      imageLabel -> setSizePolicy( QSizePolicy::Ignored, QSizePolicy::Ignored );
-      imageLabel -> setScaledContents( true );
+      // imageLabel = new QLabel();
+      // imageLabel -> setBackgroundRole( QPalette::Base );
+      // imageLabel -> setSizePolicy( QSizePolicy::Ignored, QSizePolicy::Ignored );
+      // imageLabel -> setScaledContents( true );
       
-      RED = QPixmap("red.png");
-      //GREEN = QPixmap("green.png");
-      //BLUE = QPixmap("blue.png");
-      imageLabel->setPixmap( RED );
-      
-      
-      // set the dimensions of the UI
-      widget.setWindowTitle( "Z.J.L. Image Viewer");
-      widget.resize(450, 340);
-      
-      layout->addWidget( imageLabel );
-      
-      widget.setLayout(layout);
-      widget.show();
-      app.exec();
-      
-      cout << "VideoDisplay Constructor exited." << endl;
+      // QPixmap RED("red.png");
+      // //GREEN = QPixmap("green.png");
+      // //BLUE = QPixmap("blue.png");
+      // imageLabel->setPixmap( RED );
       
       
-    };
-    
+      // // set the dimensions of the UI
+      // widget.setWindowTitle( "Z.J.L. Image Viewer");
+      // widget.resize(450, 340);
+      
+      // layout->addWidget( imageLabel );
+      
+      // widget.setLayout(layout);
+      // widget.show();
+      // app.exec();
+};
+
+void VideoDisplay::changeFrame()
+{
+};
+
+
+
     // void green()
     // {
       //  //QPixmap BLUE = QPixmap("blue.png");
@@ -161,4 +165,3 @@ class VideoDisplay
       // imageLabel->setPixmap( pixmap );
     // };
 
-};
