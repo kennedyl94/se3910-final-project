@@ -8,16 +8,14 @@ class VideoReceiver
 {
   
   private:
-    VideoDisplay *display;
+  public:
   
-  public VideoReceiver()
+  VideoReceiver()
   {
-    VideoDisplay display();
-  }
+  };
 
-  public void AcceptFrame( Mat frame )
+  void AcceptFrame( Mat frame )
   {
-    display -> DisplayFrame( frame );
-  }
+  };
 
-}
+};

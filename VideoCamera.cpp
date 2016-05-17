@@ -35,7 +35,7 @@ class VideoCamera
         }
         
         // display frame on the local display
-        display -> DisplayFrame( frame );
+        //display -> DisplayFrame( frame );
         
         return frame;
     };
@@ -54,7 +54,8 @@ class VideoCamera
         // }
         
         // initialize the local display
-        VideoDisplay display;
+        //VideoDisplay::Init();
+        //VideoDisplay display;
     };
 
 };
