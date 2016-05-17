@@ -10,15 +10,12 @@ int main( int argc, char **argv )
 {
   cout << "Main loop entered." << endl;
   
-  // create a application
-  int zero = 0;
-  QApplication app( zero, NULL );
+  VideoDisplay::AppInit( );
   
   VideoDisplay display;
   display.changeFrame( );
   
-  // begin execution of the UI
-  app.exec();
+  VideoDisplay::AppExec( );
   
   cout << "Main loop exited." << endl;
   

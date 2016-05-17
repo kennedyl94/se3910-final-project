@@ -16,47 +16,48 @@ class VideoDisplay
 
   private:
     QLabel *imageLabel;
+    
+    static QApplication app;
+    
     // QPixmap RED;
     // QPixmap BLUE;
     // QPixmap GREEN;
   
   public:
-    VideoDisplay(); //constructor
-    void changeFrame();
+    VideoDisplay( ); //constructor
+    void changeFrame( );
+    
+    static void AppInit( );
+    static void AppExec( );
     
 };
 
-VideoDisplay::VideoDisplay()
+VideoDisplay::VideoDisplay( )
 {
   cout << "VideoDisplay Constructor entered." << endl;
-  
-  // create a application
-  int zero = 0;
-  QApplication app( zero, NULL );
 
   // create the label that will display the frames
-  imageLabel = new QLabel();
+  imageLabel = new QLabel( );
   imageLabel -> setBackgroundRole( QPalette::Base );
   imageLabel -> setSizePolicy( QSizePolicy::Ignored, QSizePolicy::Ignored );
   imageLabel -> setScaledContents( true );
   
   // set the current frame to a red test image
-  QPixmap RED("red.png");
+  QPixmap RED( "red.png" );
   imageLabel->setPixmap( RED );
   
   // create a layout
-  QVBoxLayout *layout = new QVBoxLayout();
+  QVBoxLayout *layout = new QVBoxLayout( );
   layout->addWidget( imageLabel );
   
   // create a widget
   QWidget widget;
-  widget.setWindowTitle( "Z.J.L. Image Viewer");
-  widget.resize(450, 340);
-  widget.setLayout(layout);
-  widget.show();
+  widget.setWindowTitle( "Z.J.L. Image Viewer" );
+  widget.resize( 450, 340 );
+  widget.setLayout( layout );
+  widget.show( );
   
-  // begin execution of the UI
-  app.exec();
+  
   
   cout << "VideoDisplay Constructor exited." << endl;
 
@@ -66,8 +67,30 @@ VideoDisplay::VideoDisplay()
       // imageLabel->setPixmap( RED );
 };
 
-void VideoDisplay::changeFrame()
+void VideoDisplay::changeFrame( )
 {
+};
+
+void VideoDisplay::AppInit( )
+{
+  cout << "VideoDisplay::AppInit entered." << endl;
+  
+  // create a application
+  int zero = 0; // need to specify that it's an int not reference
+  // VideoDisplay::app( zero, NULL );
+  VideoDisplay::app;
+  
+  cout << "VideoDisplay::AppInit exited." << endl;
+};
+
+void VideoDisplay::AppExec( )
+{
+  cout << "VideoDisplay::AppExec entered." << endl;
+  
+  // begin execution of the UI
+  VideoDisplay::app.exec( );
+  
+  cout << "VideoDisplay::AppExec exited." << endl;
 };
 
 
