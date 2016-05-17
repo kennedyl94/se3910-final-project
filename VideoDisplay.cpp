@@ -15,7 +15,6 @@ class VideoDisplay
     // void changeFrame( QPixmap frame );
 
   private:
-    
     QLabel *imageLabel;
     // QPixmap RED;
     // QPixmap BLUE;
