@@ -1,0 +1,12 @@
+INPUT(
+./debug/main.o
+./debug/mainwindow.o
+./debug/AudioCapture.o
+./debug/AudioInterface.o
+./debug/AudioReceiver.o
+./debug/Client.o
+./debug/Server.o
+./debug/VideoMock.o
+./debug/VideoReceive.o
+./debug/moc_mainwindow.o
+);

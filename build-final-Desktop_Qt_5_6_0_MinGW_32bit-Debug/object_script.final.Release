@@ -1,0 +1,12 @@
+INPUT(
+./release/main.o
+./release/mainwindow.o
+./release/AudioCapture.o
+./release/AudioInterface.o
+./release/AudioReceiver.o
+./release/Client.o
+./release/Server.o
+./release/VideoMock.o
+./release/VideoReceive.o
+./release/moc_mainwindow.o
+);

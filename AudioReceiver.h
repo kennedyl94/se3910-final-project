@@ -14,6 +14,7 @@ private:
     int rc;
     char *buffer;
     int bufferSize;
+    int sockfd;
 };
 
 #endif
