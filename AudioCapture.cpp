@@ -80,7 +80,7 @@ AudioCapture::AudioCapture(char* audio)
     }
 	
 	//keeps main thread running so other thread can run
-	while(true);
+//	while(true);
 }
 
 void* tmp(void* a)

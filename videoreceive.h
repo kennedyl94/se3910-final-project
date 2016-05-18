@@ -1,12 +1,12 @@
-#ifndef VIDEODISPALY_H
-#define VIDEODISPALY_H
+#ifndef VIDEORECEIVE_H
+#define VIDEORECEIVE_H
 #include <QLabel>
 #include "videocamera.h"
 #include <QtNetwork/QTcpServer>
 #include <QtNetwork/QTcpSocket>
-#include "AudioCapture.h"
+#include "AudioReceiver.h"
 
-class VideoDisplay
+class VideoReceive
 {
   //signals:
     // void changeFrame( QPixmap frame );
@@ -15,11 +15,10 @@ class VideoDisplay
     QLabel *imageLabel;
 
     static QApplication app;
-    VideoCamera cam;
-    QTcpServer serv;
-    QTcpSocket* sock;
-    AudioCapture audio;
 
+    QTcpSocket sock;
+    void readData(int length, char *ret);
+    AudioReceiver audio;
 
 
     // QPixmap RED;
@@ -27,15 +26,14 @@ class VideoDisplay
     // QPixmap GREEN;
 
   public:
-    VideoDisplay(QString path); //constructor
+    VideoReceive(QString path); //constructor
     void changeFrame( );
 
-    static void AppInit( );
-    static void AppExec( );
+    static void AppInit();
+    static void AppExec();
 
   private slots:
-    void accepted();
-    void send();
+    void readyRead();
 
 };
 
