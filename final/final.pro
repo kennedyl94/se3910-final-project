@@ -12,24 +12,20 @@ TARGET = final
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
-        mainwindow.cpp \
-    ../AudioCapture.cpp \
-    ../AudioInterface.cpp \
-    ../AudioReceiver.cpp \
-    ../Client.cpp \
-    ../Server.cpp \
-    ../VideoCamera.cpp \
-    ../VideoDisplay.cpp \
-    ../VideoMock.cpp \
-    ../VideoReceive.cpp
+SOURCES +=
+    ./AudioCapture.cpp \
+    ./AudioInterface.cpp \
+    ./AudioReceiver.cpp \
+    ./VideoCamera.cpp \
+    ./VideoDisplay.cpp \
+    ./VideoMock.cpp \
+    ./VideoReceive.cpp
 
-HEADERS  += mainwindow.h \
-    ../AudioCapture.h \
-    ../AudioInterface.h \
-    ../AudioReceiver.h \
-    ../Video.h \
-    ../videocamera.h \
-    ../videodisplay.h
+HEADERS  +=
+    ./AudioCapture.h \
+    ./AudioInterface.h \
+    ./AudioReceiver.h \
+    ./videocamera.h \
+    ./videodisplay.h
 
 FORMS    += mainwindow.ui
