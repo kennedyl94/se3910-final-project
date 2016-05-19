@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+CONFIG += c++11
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -12,8 +13,7 @@ TARGET = final
 TEMPLATE = app
 
 
-SOURCES +=
-    ./AudioCapture.cpp \
+SOURCES +=./AudioCapture.cpp \
     ./AudioInterface.cpp \
     ./AudioReceiver.cpp \
     ./VideoCamera.cpp \
@@ -21,11 +21,8 @@ SOURCES +=
     ./VideoMock.cpp \
     ./VideoReceive.cpp
 
-HEADERS  +=
-    ./AudioCapture.h \
+HEADERS  +=./AudioCapture.h \
     ./AudioInterface.h \
     ./AudioReceiver.h \
     ./videocamera.h \
     ./videodisplay.h
-
-FORMS    += mainwindow.ui
