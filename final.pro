@@ -12,8 +12,7 @@ TARGET = final
 TEMPLATE = app
 
 
-SOURCES +=
-    ./AudioCapture.cpp \
+SOURCES +=./AudioCapture.cpp \
     ./AudioInterface.cpp \
     ./AudioReceiver.cpp \
     ./VideoCamera.cpp \
@@ -21,14 +20,11 @@ SOURCES +=
     ./VideoMock.cpp \
     ./VideoReceive.cpp
 
-HEADERS  +=
-    ./AudioCapture.h \
+HEADERS  +=./AudioCapture.h \
     ./AudioInterface.h \
     ./AudioReceiver.h \
     ./videocamera.h \
     ./videodisplay.h
-
-FORMS    += mainwindow.ui
 	
 # install
 target.path = $$[QT_INSTALL_EXAMPLES]/widgets/imageviewer
