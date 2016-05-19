@@ -8,9 +8,9 @@
 #include <netdb.h>
 #include <thread>
 
-#include "Video.h"
-#include "VideoDisplay.cpp"
-#include "videoCamera.cpp"
+#include "video.h"
+#include "videodisplay.h"
+#include "videocamera.h"
 
 VideoCamera::VideoCamera( ) 
 {

@@ -1,6 +1,5 @@
 #include "videodisplay.h"
 #include <unistd.h>
-#include "videoreceive.h"
 #include<iostream>
 #include<opencv2/opencv.hpp>
 #include<time.h>

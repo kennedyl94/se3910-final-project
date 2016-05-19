@@ -17,8 +17,7 @@ SOURCES +=./AudioCapture.cpp \
     ./AudioReceiver.cpp \
     ./VideoCamera.cpp \
     ./VideoDisplay.cpp \
-    ./VideoMock.cpp \
-    ./VideoReceive.cpp
+    ./VideoMock.cpp
 
 HEADERS  +=./AudioCapture.h \
     ./AudioInterface.h \
