@@ -1,61 +1,116 @@
-#include "Video.h"
 #include<iostream>
 #include<opencv2/opencv.hpp>
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <stdlib.h>
+#include <netdb.h>
+#include <thread>
+
+#include "Video.h"
 #include "VideoDisplay.cpp"
+
 using namespace std;
 using namespace cv;
 
-// VideoCapture is the name of the object we use to connect to the camera
-class VideoCamera
+class VideoCamera // VideoCapture is the name of the object we use to connect to the camera
 {
   private:
-  
-      VideoDisplay *display;
-      
+    VideoCapture* camera;
+    std::thread thread;
+    bool running;
+    Mat frame;
+
   public:
-
-    Mat CaptureFrame()
-    {
-        VideoCapture usbCamera( 0 );
-        usbCamera.set( CV_CAP_PROP_FRAME_WIDTH, FRAME_WIDTH );
-        usbCamera.set( CV_CAP_PROP_FRAME_HEIGHT, FRAME_HEIGHT );
-        if( !usbCamera.isOpened() )
-        {
-          cout << "Failed to connect to the camera." << endl;
-        }
-        
-        // capture a frame
-        Mat frame;
-        usbCamera >> frame;
-        
-        // ensure valid frame
-        if( frame.empty() )
-        {
-          cout << "Failed to capture an image" << endl;
-        }
-        
-        // display frame on the local display
-        //display -> DisplayFrame( frame );
-        
-        return frame;
-    };
-
-    VideoCamera()
-    {
-        // create new thread for CaptureFrame
-        // pthread_t threads[1];
-        // int threadCreateResult;
-        // threadCreateResult = pthread_create( &threads[0], NULL, &CaptureFrame, NULL );
-
-        // if( threadCreateResult )
-        // {
-          // cout << "unable to create thread in Camera" << endl;
-          // exit( -1 );
-        // }
-        
-        // initialize the local display
-        //VideoDisplay::Init();
-        //VideoDisplay display;
-    };
-
+    VideoCamera( );
+    ~VideoCamera( );
+    void capture( );
+    void start( );
+    void run( );
+    void stop( );
 };
+
+VideoCamera::VideoCamera( ) 
+{
+  cout << "VideoCamera connecting to camera..." << endl;
+
+  camera = new VideoCapture( 0 );
+  camera -> set( CV_CAP_PROP_FRAME_WIDTH, FRAME_WIDTH );
+  camera -> set( CV_CAP_PROP_FRAME_HEIGHT, FRAME_HEIGHT );
+    
+  if ( !camera -> isOpened() ) 
+  {
+    cout << "VideoCamera failed to connect to the camera." << endl;
+    exit ( -1 );
+  }
+    
+  cout << "VideoCamera connected to camera." << endl;
+}
+
+void VideoCamera::capture( )
+{
+  cout << "Frame capturing..." << endl;
+  
+  camera -> retrieve( frame, 0 );
+  
+  cout << "Frame captured." << endl;
+}
+
+void VideoCamera::start( ) 
+{
+  cout << "VideoCamera starting thread..." << endl;
+  
+  running = true;
+  thread = std::thread( &VideoCamera::run, this );
+  
+  cout << "VideoCamera started thread." << endl;
+}
+
+void VideoCamera::run( ) 
+{
+  cout << "VideoCamera starting capture loop..." << endl;
+  
+  // QPixmap BLUE( "blue.png" );
+  // QPixmap GREEN( "green.png" );
+  // bool blue = true;
+  
+  while ( running ) 
+  {
+    capture( );
+    //display -> showFrame();
+    //TODO: send video
+    
+    // if ( blue == true )
+    // {
+      // display -> showFrame( BLUE );
+      // blue = false;
+    // }
+    // else
+    // {
+      // display -> showFrame( GREEN );
+      // blue = true;
+    // }
+  }
+  
+  cout << "VideoCamera ended capture loop." << endl;
+}
+
+void VideoCamera::stop( ) 
+{
+  cout << "VideoCamera stopping thread..." << endl;
+    
+  running = false;
+  thread.join( );
+    
+  cout << "VideoCamera stopped thread." << endl;
+}
+
+VideoCamera::~VideoCamera( ) 
+{
+  cout << "VideoCamera destructing..." << endl;
+   
+  delete camera;
+   
+  cout << "VideoCamera destructed." << endl;
+}

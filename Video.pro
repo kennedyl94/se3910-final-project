@@ -23,4 +23,5 @@ maemo5: warning(This example might not fully work on Maemo platform)
 simulator: warning(This example might not fully work on Simulator platform)
 
 unix: CONFIG += link_pkgconfig
+QMAKE_CXXFLAGS += -std=c++11
 unix: PKGCONFIG += opencv
