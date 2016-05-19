@@ -52,10 +52,10 @@ AudioCapture::AudioCapture(char* audio)
     clilen = sizeof(cli_addr);
 
     // Block until a client has connected to the server.  This returns a file descriptor for the connection.
-   newsockfd = accept(sockfd,
+    newsockfd = accept(sockfd,
                 (struct sockaddr *) &cli_addr,
                 &clilen);
-   // If the return is less than 0l, there is an error.
+    // If the return is less than 0l, there is an error.
     if (newsockfd < 0)
       {
          error("ERROR on accept");
@@ -122,6 +122,7 @@ void AudioCapture::sendAudio(){
 
 }
 
+/*
 int main(int argc, char* argv[])
 {
     if(argc != 2){
@@ -131,3 +132,4 @@ int main(int argc, char* argv[])
     AudioCapture ac(argv[1]);
     return 0;
 }
+*/
