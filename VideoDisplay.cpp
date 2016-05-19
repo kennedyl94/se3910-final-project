@@ -1,31 +1,17 @@
-#include "Video.h"
+#include "videodisplay.h"
 #include<iostream>
-#include<opencv2/opencv.hpp>
+//#include<opencv2/opencv.hpp>
 #include <QApplication>
 #include <QMainWindow>
-#include <QPrinter>
+//#include <QPrinter>
 #include <QtGui>
+#include "videodisplay.h"
 
 using namespace std;
 using namespace cv;
+//listening on 4000
 
-class VideoDisplay : public QMainWindow
-{
-
-  private:
-    QLabel *imageLabel;
-    
-  public:
-    explicit VideoDisplay( QWidget *parent = 0 );
-    ~VideoDisplay( );
-  
-  public slots:
-    void showFrame( QByteArray frame );
-    void showFrame( QPixmap frame );
-};
-
-
-VideoDisplay::VideoDisplay( QWidget *parent ) : QMainWindow( parent )//, ui( new Ui::VideoDisplay )
+VideoDisplay::VideoDisplay( QWidget *parent ) : QMainWindow( parent )
 {
   cout << "VideoDisplay constructing..." << endl;
   
@@ -76,4 +62,25 @@ VideoDisplay::~VideoDisplay( )
   cout << "VideoDisplay destructing..." << endl;
   
   cout << "VideoDisplay destructed." << endl;
+}
+
+void VideoDisplay::accepted()
+{
+    sock=serv.nextPendingConnection();
+    QTimer::singleShot(0, this, SLOT(send()));// change 0 to limit fps
+}
+
+void VideoDisplay::send()
+{
+    Mat img = cam.CaptureFrame();
+    int size = img.total()*img.elemSize();
+    sock->write((char*)&size, 4);
+    sock->write((char*)&img.rows, 4);
+    sock->write((char*)&img.cols, 4);
+    sock->write((char*)&img.step, 4);
+    sock->write(img.data, size);
+    QImage imgIn= QImage((uchar*) img.data, img.cols, img.rows, img.step, QImage::Format_RGB888);
+
+    imageLabel->setPixmap(QPixmap::fromImage(imgIn));
+    QTimer::singleShot(0, this, SLOT(send()));// change 0 to limit fps more important here
 }
